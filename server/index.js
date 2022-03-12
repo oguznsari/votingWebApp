@@ -22,4 +22,13 @@ app.get("/poll", async (req, res) => {
     res.json(data);
 });
 
+app.post("/poll", async (req, res) => {
+    let data = JSON.parse(await fs.readFile(dataFile, "utf-8"));
+    
+    data[req.body.add]++;
+
+    await fs.writeFile(dataFile, JSON.stringify(data));
+    res.end();
+});
+
 app.listen(3000, () => console.log("Server is running..."));
